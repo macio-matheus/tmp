@@ -1,0 +1,322 @@
+{
+  "info": {
+    "title": "Fraude Zarp",
+    "description": "The purpose of the API is to calculate the fraude score",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/modelo-fraude-zarp/v1/score": {
+      "post": {
+        "tags": [
+          "score"
+        ],
+        "summary": "Endpoint returns the fraud score based on the trained model",
+        "description": "Endpoint receives data and returns the fraud score based on the statistic model",
+        "operationId": "Score_Zarp_Fraud_endpoint_modelo_fraude_zarp_v1_score_post",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ScoreFraudeZarp"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ExceptionMessageModel"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ExceptionMessageModel"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#/definitions/HTTPValidationError"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ExceptionMessageModel"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "required": true,
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Payload"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/modelo-fraude-zarp/v1/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Endpoint for health check - liveness and readiness probe",
+        "description": "Endpoint for health check - liveness and readiness probe",
+        "operationId": "Health_endpoint_modelo_fraude_zarp_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ExceptionMessageModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ExceptionMessageModel"
+            }
+          }
+        },
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0",
+  "definitions": {
+    "ExceptionMessageModel": {
+      "title": "ExceptionMessageModel",
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string",
+          "description": "Código do erro."
+        },
+        "message": {
+          "title": "Message",
+          "type": "string",
+          "description": "Mensagem de erro."
+        }
+      }
+    },
+    "HTTPValidationError": {
+      "title": "HTTPValidationError",
+      "type": "object",
+      "properties": {
+        "detail": {
+          "title": "Detail",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ValidationError"
+          }
+        }
+      }
+    },
+    "Payload": {
+      "title": "Payload",
+      "required": [
+        "bin",
+        "cd_grupo_tarifario",
+        "data_abertura_contrato",
+        "data_abertura_reserva",
+        "data_cadastro_cliente",
+        "qtd_contrato_anterior",
+        "qtd_contratos_abertos",
+        "qtd_contratos_fechados",
+        "idade",
+        "cd_cidade_retirada",
+        "cd_estado_retirada",
+        "sexo",
+        "cd_agencia_retirada",
+        "cd_estado_cliente",
+        "renda",
+        "escolaridade",
+        "insights_datatrust",
+        "qtd_reservas_anteriores",
+        "vlr_percentual_desconto_realizado",
+        "cd_grupo_veiculo_contrato_anterior",
+        "vlr_transacao",
+        "tipo_transacao"
+      ],
+      "type": "object",
+      "properties": {
+        "bin": {
+          "title": "Bin",
+          "type": "string"
+        },
+        "cd_grupo_tarifario": {
+          "title": "Cd Grupo Tarifario",
+          "type": "string"
+        },
+        "data_abertura_contrato": {
+          "title": "Data Abertura Contrato",
+          "type": "string",
+          "format": "date-time"
+        },
+        "data_abertura_reserva": {
+          "title": "Data Abertura Reserva",
+          "type": "string",
+          "format": "date-time"
+        },
+        "data_cadastro_cliente": {
+          "title": "Data Cadastro Cliente",
+          "type": "string",
+          "format": "date-time"
+        },
+        "score_fraude_mercado": {
+          "title": "Score Fraude Mercado",
+          "type": "number"
+        },
+        "score_credito_positivo_mercado": {
+          "title": "Score Credito Positivo Mercado",
+          "type": "number"
+        },
+        "qtd_contrato_anterior": {
+          "title": "Qtd Contrato Anterior",
+          "type": "integer"
+        },
+        "qtd_contratos_abertos": {
+          "title": "Qtd Contratos Abertos",
+          "type": "integer"
+        },
+        "qtd_contratos_fechados": {
+          "title": "Qtd Contratos Fechados",
+          "type": "integer"
+        },
+        "idade": {
+          "title": "Idade",
+          "type": "integer"
+        },
+        "cd_cidade_retirada": {
+          "title": "Cd Cidade Retirada",
+          "type": "string"
+        },
+        "cd_estado_retirada": {
+          "title": "Cd Estado Retirada",
+          "type": "string"
+        },
+        "cd_tarifa": {
+          "title": "Cd Tarifa",
+          "type": "string"
+        },
+        "sexo": {
+          "title": "Sexo",
+          "type": "string"
+        },
+        "score_fraude_datatrust": {
+          "title": "Score Fraude Datatrust",
+          "type": "number"
+        },
+        "cd_agencia_retirada": {
+          "title": "Cd Agencia Retirada",
+          "type": "string"
+        },
+        "cd_estado_cliente": {
+          "title": "Cd Estado Cliente",
+          "type": "string"
+        },
+        "renda": {
+          "title": "Renda",
+          "type": "number"
+        },
+        "escolaridade": {
+          "title": "Escolaridade",
+          "type": "string"
+        },
+        "insights_datatrust": {
+          "title": "Insights Datatrust",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "qtd_reservas_anteriores": {
+          "title": "Qtd Reservas Anteriores",
+          "type": "integer"
+        },
+        "vlr_percentual_desconto_realizado": {
+          "title": "Vlr Percentual Desconto Realizado",
+          "type": "number"
+        },
+        "cd_grupo_veiculo_contrato_anterior": {
+          "title": "Cd Grupo Veiculo Contrato Anterior",
+          "type": "string"
+        },
+        "vlr_transacao": {
+          "title": "Vlr Transacao",
+          "type": "number"
+        },
+        "tipo_transacao": {
+          "title": "Tipo Transacao",
+          "type": "integer"
+        }
+      }
+    },
+    "ScoreFraudeZarp": {
+      "title": "ScoreFraudeZarp",
+      "required": [
+        "score_fraude",
+        "variaveis_usadas_no_modelo"
+      ],
+      "type": "object",
+      "properties": {
+        "score_fraude": {
+          "title": "Score de Fraude do cliente Zarp",
+          "type": "number",
+          "description": "Valor predito pelo modelo de fraude em zarp"
+        },
+        "variaveis_usadas_no_modelo": {
+          "title": "Features (payload) usadas na predição",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Payload"
+            }
+          ],
+          "description": "Features utilizadas pelo modelo de fraude zarp"
+        }
+      }
+    },
+    "ValidationError": {
+      "title": "ValidationError",
+      "required": [
+        "loc",
+        "msg",
+        "type"
+      ],
+      "type": "object",
+      "properties": {
+        "loc": {
+          "title": "Location",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "msg": {
+          "title": "Message",
+          "type": "string"
+        },
+        "type": {
+          "title": "Error Type",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "x-components": {}
+}
